@@ -1,0 +1,138 @@
+/* main.css */
+@font-face {
+    font-family: 'Pretendard-Regular'; /* 폰트 이름 지정 */
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff'); /* 외부 폰트 URL 및 형식 지정 */
+    font-weight: 400; /* 폰트 두께 */
+    font-style: normal; /* 폰트 스타일 */
+    font-display: swap; /* 폰트 로딩 동안 텍스트 표시 방법 */
+}
+
+body {
+    font-family: 'Pretendard-Regular', sans-serif; /* 폰트 적용 */
+    background: black;
+    background-size: cover; /* 배경 이미지가 뷰포트를 완전히 커버하도록 설정 */
+    background-attachment: fixed; /* 배경 이미지를 스크롤 시 고정 */
+    margin: 0; /* 외부 마진 제거 */
+    overflow: auto; /* 내용이 뷰포트를 초과할 경우 스크롤바 표시 */
+}
+
+#bg-video {
+    position: fixed; /* 비디오 위치 고정 */
+    top: 50%; right: 0; bottom: 0; left: 50%; /* 중앙 위치로 조정 */
+    transform: translate(-50%, -50%); /* 정확한 중앙 정렬을 위해 */
+    min-width: 100%; min-height: 100%; /* 최소 너비 및 높이 설정 */
+    width: auto; height: auto; /* 자동 너비 및 높이 조정 */
+    z-index: -100; /* 다른 요소들보다 뒤에 위치 */
+    object-fit: cover; /* 컨테이너를 채우면서 비디오의 비율 유지 */
+}
+#main-black{
+    width: 40vh; /* 너비를 300픽셀로 설정 */
+    height: auto; /* 높이를 자동으로 조정 */
+}
+#dealer_img{
+    width: 80vh; /* 너비를 300픽셀로 설정 */
+    height: auto; /* 높이를 자동으로 조정 */
+}
+
+/* 상단 */
+
+.top-box {
+    display: flex; /* 플렉스 컨테이너로 설정 */
+    justify-content: center; /* 가로 축에서 중앙 정렬 */
+    align-items: center; /* 세로 축에서 중앙 정렬 */
+    height: 10vh; /* 뷰포트 높이의 35%만큼 설정 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+    background-color: rgba(0, 0, 0, 0); /* 배경 색상 및 투명도 설정 */
+}
+
+.Blackjack-img-box {
+    margin-top: 18vh; /* 상단에서 추가적으로 2vh 더 아래로 */
+    display: flex; /* 플렉스 컨테이너로 설정 */
+    justify-content: center; /* 가로 축에서 중앙 정렬 */
+    align-items: center; /* 세로 축에서 중앙 정렬 */
+    height: 30vh; /* 뷰포트 높이만큼 설정 */
+    width: 50vh;
+    border-radius: 3vh;
+}
+
+/* 중간 */
+
+.mid-box { 
+    display: flex; /* 플렉스 컨테이너로 설정 */
+    justify-content: center; /* 가로 축에서 중앙 정렬 */
+    align-items: center; /* 세로 축에서 중앙 정렬 */
+    height: 75vh; /* 뷰포트 높이만큼 설정 */
+    color: white; /* 글자 색상 설정 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+    background-color: rgba(0, 0, 0, 0); /* 배경 색상 및 투명도 설정 */
+}
+
+.main-container {
+    display: flex; /* 플렉스 컨테이너로 설정 */
+    justify-content: center; /* 가로 축에서 중앙 정렬 */
+    align-items: center; /* 세로 축에서 중앙 정렬 */
+    height: 100%; /* 뷰포트 높이만큼 설정 */
+    width: 130vh;
+    border-radius: 3vh;
+    background-color: rgba(191, 191, 191, 0.5); /* 배경 색상 및 투명도 설정 */
+}
+
+/* 로그인 버튼 */
+.sign-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-sign {
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+.btn-sign:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* 하단 */
+
+.bot-box {
+    position: relative; /* 상대적 위치 설정 */
+    display: flex; /* 플렉스 컨테이너로 설정 */
+    justify-content: center; /* 가로 축에서 중앙 정렬 */
+    align-items: center; /* 세로 축에서 중앙 정렬 */
+    height: 15vh; /* 뷰포트 높이의 35%만큼 설정 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+    background-color: rgba(0, 0, 0, 0); /* 배경 색상 및 투명도 설정 */
+}
+
+.dealer-img-box {
+    position: absolute; /* 절대적 위치 설정 */
+    bottom: 0; /* 하단에 고정 */
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    height: 75vh;
+    width: 100vh;
+    border-radius: 3vh;
+    z-index: -50;
+    overflow: hidden;
+}
+
+.white-bar {
+    position: fixed; /* 요소를 화면에 고정 */
+    bottom: 0.6vh; /* 뷰포트의 맨 아래에 위치 */
+    align-items:end;
+    width: 30vw;
+    max-width: 350px; /* 최대 너비를 300픽셀로 제한 */
+    height: 0.4vh;
+    border-radius: 10vh;
+    background-color: rgba(180, 180, 180, 0.625);    
+}
+

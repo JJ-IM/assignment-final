@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>킹콩머니 💸</title>
+    <link rel="icon" type="image/x-icon" href="./assets/img/main/DK_icon.ico">
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/nav.css">
+</head>
+<body>
+    <video autoplay loop muted playsinline id="bg-video" style="filter: blur(3px);">
+        <source src="./assets/video/Red_Smok.mp4" type="video/mp4">
+    </video>
+
+    <div id="content">
+        <!-- 이곳에 JavaScript에 의해 컨텐츠가 로드됩니다. -->
+    </div>
+
+    <script>
+        // 쿠키를 읽는 함수
+        function getCookie(name) {
+            let value = "; " + document.cookie;
+            let parts = value.split("; " + name + "=");
+            if (parts.length == 2) return parts.pop().split(";").shift();
+        }
+
+        // 로그인 상태를 확인하는 함수
+        function checkLogin() {
+            return getCookie("username") !== undefined;
+        }
+
+        // 컨텐츠 로드 함수
+        function loadContent() {
+            const contentDiv = document.getElementById('content');
+            if (checkLogin()) {
+                // 로그인된 상태
+                contentDiv.innerHTML = `
+                    <div class="top-box">
+                        <div class="Blackjack-img-box">
+                            <img src="./assets/img/main/BlackJack.png" id="main-black" alt="Blackjack" class="Blackjack-img">
+                        </div>
+                    </div>
+                    <div class="mid-box"></div>
+                    <div class="bot-box">
+                        <div class="dealer-img-box">
+                            <img src="./assets/img/main/dealer.png" id="dealer_img" alt="Blackjack" class="Blackjack-img">
+                        </div>
+                        <div class="nav-box">
+                            <div class="nav-bar">
+                                <div class="nav-bar-item">
+                                    <a href="./HTML/Ranking.html">
+                                        <img src="./assets/img/navbar/Ranking.svg" alt="Ranking" class="nav-bar-img">
+                                    </a>
+                                </div>
+                                <div class="nav-bar-item">
+                                    <a href="./HTML/History.html">
+                                        <img src="./assets/img/navbar/History.svg" alt="History" class="nav-bar-img">
+                                    </a>
+                                </div>
+                                <div class="nav-bar-item">
+                                    <a href="./HTML/Play.html">
+                                        <img src="./assets/img/navbar/Play.svg" alt="Play" class="nav-bar-img">
+                                    </a>
+                                </div>
+                                <div class="nav-bar-item">
+                                    <a href="./HTML/Mypage.html">
+                                        <img src="./assets/img/navbar/Mypage.svg" alt="Mypage" class="nav-bar-img">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="white-bar"></div>
+                    </div>
+                `;
+            } else {
+                // 로그인되지 않은 상태
+                contentDiv.innerHTML = `
+                    <div class="top-box">
+                        <div class="Blackjack-img-box">
+                            <img src="./assets/img/main/BlackJack.png" id="main-black" alt="Blackjack" class="Blackjack-img">
+                        </div>
+                    </div>
+                    <div class="mid-box">
+                        <div class="sign-buttons">
+                            <a href="./HTML/SignIn.html" class="btn btn-sign">Sign In</a>
+                            <a href="./HTML/SignUp.html" class="btn btn-sign">Sign Up</a>
+                        </div>
+                    </div>
+                    <div class="bot-box">
+                        <div class="dealer-img-box">
+                            <img src="./assets/img/main/dealer.png" id="dealer_img" alt="Blackjack" class="Blackjack-img">
+                        </div>
+                        <div class="white-bar"></div>
+                    </div>
+                `;
+            }
+        }
+
+        // 페이지 로드 시 컨텐츠 로드
+        window.onload = loadContent;
+    </script>
+</body>
+</html>
