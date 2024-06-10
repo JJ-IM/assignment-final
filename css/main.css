@@ -86,8 +86,10 @@ body {
     border-radius: 40px;
     backdrop-filter: blur(2.5px);
     background-color: rgba(0, 0, 0, 0.5);
-    position: absolute;
-    top: 6vh; /* 버튼 컨테이너를 화면 상단에서 6vh 아래로 위치 */
+
+    position: fixed; /* 요소를 화면에 고정 */
+    bottom: 1.5vh; /* 뷰포트의 맨 아래에 위치 */
+    
     left: 50%;
     transform: translateX(-50%);
 }

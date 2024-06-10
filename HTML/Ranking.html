@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>킹콩머니 💸 - 랭킹</title>
+    <link rel="icon" type="image/x-icon" href="../assets/img/main/DK_icon.ico">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/nav.css">
+</head>
+<body>
+    <video autoplay loop muted playsinline id="bg-video" style="filter: blur(3px);">
+        <source src="../assets/video/Red_Smok.mp4" type="video/mp4">
+    </video>
+
+    <div id="content">
+        <!-- 이곳에 JavaScript에 의해 컨텐츠가 로드됩니다. -->
+    </div>
+
+    <script>
+        // 쿠키를 읽는 함수
+        function getCookie(name) {
+            let value = "; " + document.cookie;
+            let parts = value.split("; " + name + "=");
+            if (parts.length == 2) return parts.pop().split(";").shift();
+        }
+
+        // 로그인 상태를 확인하는 함수
+        function checkLogin() {
+            return getCookie("username") !== undefined;
+        }
+
+        // 컨텐츠 로드 함수
+        function loadContent() {
+            const contentDiv = document.getElementById('content');
+            if (checkLogin()) {
+                // 로그인된 상태
+                contentDiv.innerHTML = `
+                    <div class="top-box">
+                    </div>
+
+                    <div class="mid-box">
+                    </div>
+
+                    <div class="bot-box">
+                        <div class="white-bar"></div>
+                    </div>
+                `;
+            } else {
+                // 로그인되지 않은 상태
+                alert("로그인을 해주세요"); // 경고 상자 표시
+                window.location.href = '../'; // 메인 화면으로 리다이렉트
+            }
+        }
+
+        // 페이지 로드 시 컨텐츠 로드
+        window.onload = loadContent;
+    </script>
+</body>
+</html>
