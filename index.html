@@ -37,59 +37,70 @@
                 // 로그인된 상태
                 contentDiv.innerHTML = `
                     <div class="top-box">
-                        <div class="Blackjack-img-box">
-                            <img src="./assets/img/main/BlackJack.png" id="main-black" alt="Blackjack" class="Blackjack-img">
+                        <div class="blackjack-img-container">
+                            <img src="./assets/img/main/BlackJack.png" id="main-black" alt="Blackjack" class="blackjack-img">
                         </div>
                     </div>
                     <div class="mid-box"></div>
                     <div class="bot-box">
-                        <div class="dealer-img-box">
-                            <img src="./assets/img/main/dealer.png" id="dealer_img" alt="Blackjack" class="Blackjack-img">
+                        <div class="dealer-img-container">
+                            <img src="./assets/img/main/dealer.png" id="dealer_img" alt="Blackjack" class="dealer-img">
                         </div>
-                        <div class="nav-box">
-                            <div class="nav-bar">
-                                <div class="nav-bar-item">
-                                    <a href="./HTML/Ranking.html">
-                                        <img src="./assets/img/navbar/Ranking.svg" alt="Ranking" class="nav-bar-img">
-                                    </a>
-                                </div>
-                                <div class="nav-bar-item">
-                                    <a href="./HTML/History.html">
-                                        <img src="./assets/img/navbar/History.svg" alt="History" class="nav-bar-img">
-                                    </a>
-                                </div>
-                                <div class="nav-bar-item">
-                                    <a href="./HTML/Play.html">
-                                        <img src="./assets/img/navbar/Play.svg" alt="Play" class="nav-bar-img">
-                                    </a>
-                                </div>
-                                <div class="nav-bar-item">
-                                    <a href="./HTML/Mypage.html">
-                                        <img src="./assets/img/navbar/Mypage.svg" alt="Mypage" class="nav-bar-img">
-                                    </a>
-                                </div>
+                        <div class="button-container">
+                            <div class="button-wrapper">
+                                <a href="./HTML/Ranking.html" class="button">
+                                    <img src="./assets/img/navbar/Ranking.svg" alt="Ranking" class="button-icon">
+                                    <span class="button-text">Ranking</span>
+                                </a>
+                            </div>
+                            <div class="button-wrapper">
+                                <a href="./HTML/History.html" class="button">
+                                    <img src="./assets/img/navbar/History.svg" alt="History" class="button-icon">
+                                    <span class="button-text">History</span>
+                                </a>
+                            </div>
+                            <div class="button-wrapper">
+                                <a href="./HTML/Play.html" class="button">
+                                    <img src="./assets/img/navbar/Play.svg" alt="Play" class="button-icon">
+                                    <span class="button-text">Play Game</span>
+                                </a>
+                            </div>
+                            <div class="button-wrapper">
+                                <a href="./HTML/Mypage.html" class="button">
+                                    <img src="./assets/img/navbar/Mypage.svg" alt="Mypage" class="button-icon">
+                                    <span class="button-text">My Page</span>
+                                </a>
                             </div>
                         </div>
                         <div class="white-bar"></div>
                     </div>
                 `;
             } else {
-                // 로그인되지 않은 상태
-                contentDiv.innerHTML = `
+                 // 로그인되지 않은 상태
+                 contentDiv.innerHTML = `
                     <div class="top-box">
-                        <div class="Blackjack-img-box">
-                            <img src="./assets/img/main/BlackJack.png" id="main-black" alt="Blackjack" class="Blackjack-img">
+                        <div class="blackjack-img-container">
+                            <img src="./assets/img/main/BlackJack.png" id="main-black" alt="Blackjack" class="blackjack-img">
                         </div>
                     </div>
-                    <div class="mid-box">
-                        <div class="sign-buttons">
-                            <a href="./HTML/SignIn.html" class="btn btn-sign">Sign In</a>
-                            <a href="./HTML/SignUp.html" class="btn btn-sign">Sign Up</a>
-                        </div>
-                    </div>
+                    <div class="mid-box"></div>
                     <div class="bot-box">
-                        <div class="dealer-img-box">
-                            <img src="./assets/img/main/dealer.png" id="dealer_img" alt="Blackjack" class="Blackjack-img">
+                        <div class="dealer-img-container">
+                            <img src="./assets/img/main/dealer.png" id="dealer_img" alt="Blackjack" class="dealer-img">
+                        </div>
+                        <div class="button-container">
+                            <div class="button-wrapper">
+                                <a href="./HTML/SignIn.html" class="button">
+                                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/54cd37b063ff189817c25fbdf5010a97684990d80bfbc2cda0e732c4ad535ed8?" alt="Sign In Icon" class="button-icon">
+                                    <span class="button-text">Sign In</span>
+                                </a>
+                            </div>
+                            <div class="button-wrapper">
+                                <a href="./HTML/SignUp.html" class="button">
+                                    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/6ed97b3110fdb473563d2b30f3188aa954ccd6186c02a23bb9d12a0d5697d603?" alt="Sign Up Icon" class="button-icon">
+                                    <span class="button-text">Sign Up</span>
+                                </a>
+                            </div>
                         </div>
                         <div class="white-bar"></div>
                     </div>

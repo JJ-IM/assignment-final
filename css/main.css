@@ -1,4 +1,3 @@
-/* main.css */
 @font-face {
     font-family: 'Pretendard-Regular'; /* 폰트 이름 지정 */
     src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff'); /* 외부 폰트 URL 및 형식 지정 */
@@ -13,7 +12,7 @@ body {
     background-size: cover; /* 배경 이미지가 뷰포트를 완전히 커버하도록 설정 */
     background-attachment: fixed; /* 배경 이미지를 스크롤 시 고정 */
     margin: 0; /* 외부 마진 제거 */
-    overflow: auto; /* 내용이 뷰포트를 초과할 경우 스크롤바 표시 */
+    overflow: hidden; /* 내용이 뷰포트를 초과할 경우 스크롤바 제거 */
 }
 
 #bg-video {
@@ -25,12 +24,14 @@ body {
     z-index: -100; /* 다른 요소들보다 뒤에 위치 */
     object-fit: cover; /* 컨테이너를 채우면서 비디오의 비율 유지 */
 }
-#main-black{
-    width: 40vh; /* 너비를 300픽셀로 설정 */
+
+#main-black {
+    width: 40vh; /* 너비를 40vh로 설정 */
     height: auto; /* 높이를 자동으로 조정 */
 }
-#dealer_img{
-    width: 80vh; /* 너비를 300픽셀로 설정 */
+
+#dealer_img {
+    width: 80vh; /* 너비를 80vh로 설정 */
     height: auto; /* 높이를 자동으로 조정 */
 }
 
@@ -40,24 +41,24 @@ body {
     display: flex; /* 플렉스 컨테이너로 설정 */
     justify-content: center; /* 가로 축에서 중앙 정렬 */
     align-items: center; /* 세로 축에서 중앙 정렬 */
-    height: 10vh; /* 뷰포트 높이의 35%만큼 설정 */
+    height: 10vh; /* 뷰포트 높이의 10%만큼 설정 */
     text-align: center; /* 텍스트 가운데 정렬 */
     background-color: rgba(0, 0, 0, 0); /* 배경 색상 및 투명도 설정 */
 }
 
-.Blackjack-img-box {
-    margin-top: 18vh; /* 상단에서 추가적으로 2vh 더 아래로 */
+.blackjack-img-container {
+    margin-top: 18vh; /* 상단에서 추가적으로 18vh 더 아래로 */
     display: flex; /* 플렉스 컨테이너로 설정 */
     justify-content: center; /* 가로 축에서 중앙 정렬 */
     align-items: center; /* 세로 축에서 중앙 정렬 */
     height: 30vh; /* 뷰포트 높이만큼 설정 */
-    width: 50vh;
-    border-radius: 3vh;
+    width: 50vh; /* 뷰포트 너비만큼 설정 */
+    border-radius: 3vh; /* 둥근 테두리 설정 */
 }
 
 /* 중간 */
 
-.mid-box { 
+.mid-box {
     display: flex; /* 플렉스 컨테이너로 설정 */
     justify-content: center; /* 가로 축에서 중앙 정렬 */
     align-items: center; /* 세로 축에서 중앙 정렬 */
@@ -72,32 +73,57 @@ body {
     justify-content: center; /* 가로 축에서 중앙 정렬 */
     align-items: center; /* 세로 축에서 중앙 정렬 */
     height: 100%; /* 뷰포트 높이만큼 설정 */
-    width: 130vh;
-    border-radius: 3vh;
+    width: 130vh; /* 뷰포트 너비만큼 설정 */
+    border-radius: 3vh; /* 둥근 테두리 설정 */
     background-color: rgba(191, 191, 191, 0.5); /* 배경 색상 및 투명도 설정 */
 }
 
-/* 로그인 버튼 */
-.sign-buttons {
+/* 버튼 컨테이너 */
+.button-container {
     display: flex;
-    gap: 10px;
+    gap: 15px;
+    padding: 5px;
+    border-radius: 40px;
+    backdrop-filter: blur(2.5px);
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 6vh; /* 버튼 컨테이너를 화면 상단에서 6vh 아래로 위치 */
+    left: 50%;
+    transform: translateX(-50%);
+}
+@media (max-width: 991px) {
+    .button-container {
+        bottom: 15vh; /* 작은 화면에서 위치 조정 */
+    }
 }
 
-.btn-sign {
-    background: rgba(0, 0, 0, 0.5);
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    border-radius: 4px;
-    transition: background 0.3s;
+.button-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.btn-sign:hover {
-    background: rgba(255, 255, 255, 0.3);
+.button {
+    display: flex;
+    gap: 9px;
+    padding: 11px 14px;
+    border-radius: 50px;
+    background-color: rgba(0, 0, 0, 0.4);
+    align-items: center;
+    color: white; /* 텍스트 색상 흰색으로 */
+    font-size: 16px; /* 글자 크기 조정 */
+    text-decoration: none; /* 링크 밑줄 제거 */
+}
+
+.button:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* 버튼 호버 시 배경 색상 변경 */
+}
+
+.button-icon {
+    width: 38px;
+    aspect-ratio: 1;
+    object-fit: auto;
+    object-position: center;
 }
 
 /* 하단 */
@@ -107,20 +133,20 @@ body {
     display: flex; /* 플렉스 컨테이너로 설정 */
     justify-content: center; /* 가로 축에서 중앙 정렬 */
     align-items: center; /* 세로 축에서 중앙 정렬 */
-    height: 15vh; /* 뷰포트 높이의 35%만큼 설정 */
+    height: 35vh; /* 뷰포트 높이의 35%만큼 설정 */
     text-align: center; /* 텍스트 가운데 정렬 */
     background-color: rgba(0, 0, 0, 0); /* 배경 색상 및 투명도 설정 */
 }
 
-.dealer-img-box {
+.dealer-img-container {
     position: absolute; /* 절대적 위치 설정 */
     bottom: 0; /* 하단에 고정 */
     display: flex;
     justify-content: center;
     align-items: start;
-    height: 75vh;
-    width: 100vh;
-    border-radius: 3vh;
+    height: 98vh; /* 뷰포트 높이의 98%만큼 설정 */
+    width: 100vh; /* 뷰포트 너비만큼 설정 */
+    border-radius: 3vh; /* 둥근 테두리 설정 */
     z-index: -50;
     overflow: hidden;
 }
@@ -128,11 +154,10 @@ body {
 .white-bar {
     position: fixed; /* 요소를 화면에 고정 */
     bottom: 0.6vh; /* 뷰포트의 맨 아래에 위치 */
-    align-items:end;
+    align-items: end;
     width: 30vw;
-    max-width: 350px; /* 최대 너비를 300픽셀로 제한 */
+    max-width: 350px; /* 최대 너비를 350픽셀로 제한 */
     height: 0.4vh;
     border-radius: 10vh;
-    background-color: rgba(180, 180, 180, 0.625);    
+    background-color: rgba(180, 180, 180, 0.625);
 }
-
