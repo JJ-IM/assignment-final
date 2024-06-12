@@ -1,0 +1,270 @@
+/* 폰트 */
+.login-title,
+.login-subtitle,
+.form-label,
+.form-check-label,
+.footer p,
+.footer-link {
+    font-family: 'Pretendard-Regular', sans-serif;
+    color: #cccccc;
+}
+
+.blackjack-img {
+    width: 100%;
+}
+
+.clickable-logo {
+    cursor: pointer; /* 마우스 포인터를 손 모양으로 변경 */
+}
+
+.form-control,
+.form-check-input,
+.btn {
+    font-family: 'Pretendard-Regular', sans-serif;
+    background-color: transparent !important; /* !important를 사용하여 부트스트랩 기본 스타일을 덮어씁니다 */
+    border-color: #cccccc;
+    color: #ffffff; /* 입력 필드의 텍스트 색상 흰색으로 변경 */
+}
+
+.form-control::placeholder {
+    color: rgba(204, 204, 204, 0.8) !important; /* placeholder의 색상을 #CCCCCC에 투명도 80%로 설정 */
+}
+
+.form-control {
+    color: #ffffff !important; /* 입력 필드의 텍스트 색상 흰색으로 변경 */
+}
+
+.btn-primary {
+    background-color: #367aff !important; /* Sign In 버튼의 배경을 파란색으로 덮어씌움 */
+    border-color: #367aff !important;
+}
+
+.btn-light {
+    background-color: #ffffff !important; /* Google 로그인 버튼의 배경을 흰색으로 설정 */
+    border-color: #cccccc !important;
+    color: #232323 !important; /* Google 로그인 버튼의 텍스트 색상 */
+}
+
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+.main-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 120vh;
+    height: 85.5vh;
+    max-width: 1300px;
+    max-height: 900px;
+    aspect-ratio: 1300 / 900;
+    background: linear-gradient(244deg, rgba(255, 255, 255, 0.24) 0%, rgba(107, 107, 107, 0.20) 100%);
+    border-radius: 4vh;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.img-box {
+    position: relative;
+    width: 70%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 4vh;
+}
+
+.image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 3s ease-in-out;
+}
+
+.image.show {
+    opacity: 1;
+}
+
+.gap-box {
+    width: 0%;
+    height: 100%;
+}
+
+.input-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    height: 100%;
+    border-radius: 4vh;
+    padding: 2%;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 51vh;
+    padding: 8vh 6.4vh;
+    margin: auto;
+}
+
+.login-header {
+    text-align: center;
+    margin-top: 9.6vh;
+}
+
+.login-title {
+    color: #fafafa;
+    font-feature-settings: "clig" off, "liga" off;
+    letter-spacing: -1.6px;
+    font: 700 4vh/110% 'Inter', sans-serif;
+}
+
+.login-subtitle {
+    color: #cfcfcf;
+    font-feature-settings: "clig" off, "liga" off;
+    margin-top: 1.2vh;
+    font: 400 1.8vh/150% 'Inter', sans-serif;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    width: 88%;
+    margin-top: 3.2vh;
+    font-size: 1.8vh;
+    line-height: 150%;
+}
+
+.input-label {
+    color: #fff;
+    font-feature-settings: "clig" off, "liga" off;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+}
+
+.input-separator {
+    color: #232323;
+    font-feature-settings: "clig" off, "liga" off;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+}
+
+.password-group {
+    display: flex;
+    align-items: center;
+    border-radius: 1vh;
+    border: 0.1vh solid rgba(217, 217, 217, 1);
+    padding: 1.6vh;
+    margin-top: 2vh;
+    gap: 1vh;
+    color: #ccc;
+    font-weight: 400;
+}
+
+.password-label {
+    font-feature-settings: "clig" off, "liga" off;
+    font-family: 'Inter', sans-serif;
+    flex: 1;
+}
+
+.icon {
+    width: 2.4vh;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    margin-top: 2vh;
+    gap: 1vh;
+    font-size: 1.6vh;
+    color: #cfcfcf;
+    font-weight: 500;
+}
+
+.checkbox-label {
+    font-feature-settings: "clig" off, "liga" off;
+    font-family: 'Inter', sans-serif;
+}
+
+.submit-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1vh;
+    background-color: #367aff;
+    margin-top: 2vh;
+    color: #fff;
+    font-weight: 600;
+    letter-spacing: -0.18px;
+    line-height: 120%;
+    padding: 1.6vh 0.8vh;
+}
+
+.alternative-login {
+    display: flex;
+    align-items: center;
+    margin-top: 2vh;
+    gap: 1vh;
+    font-size: 1.6vh;
+    color: #cfcfcf;
+    font-weight: 500;
+}
+
+.separator {
+    flex: 1;
+    border: 0.1vh solid rgba(217, 217, 217, 1);
+}
+
+.alternative-login-label {
+    font-feature-settings: "clig" off, "liga" off;
+    font-family: 'Inter', sans-serif;
+}
+
+.google-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1vh;
+    box-shadow: 0px 0.1vh 0.2vh rgba(0, 0, 0, 0.03);
+    border: 0.1vh solid rgba(230, 232, 231, 1);
+    background-color: #fff;
+    margin-top: 2vh;
+    padding: 1.5vh 0.8vh;
+    width: 100%;
+    color: #232323;
+    font-weight: 600;
+    letter-spacing: -0.18px;
+    line-height: 120%;
+    gap: 0.8vh;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 3.2vh;
+    color: #cfcfcf;
+    font: 400 1.8vh/150% 'Inter', sans-serif;
+}
+
+.footer-link {
+    font-weight: 600;
+    text-decoration: underline;
+    color: rgba(54, 122, 255, 1);
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
