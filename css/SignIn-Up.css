@@ -13,9 +13,7 @@
     width: 100%;
 }
 
-.clickable-logo {
-    cursor: pointer; /* 마우스 포인터를 손 모양으로 변경 */
-}
+
 
 .form-control,
 .form-check-input,

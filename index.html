@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <meta charset="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>킹콩머니 💸</title>
     <link rel="icon" type="image/x-icon" href="./assets/img/main/DK_icon.ico">
     <link rel="stylesheet" href="./css/main.css">
     <link rel="stylesheet" href="./css/nav.css">
+    <script src="./JS/auth.js" defer></script>
 </head>
 <body>
     <video autoplay loop muted playsinline id="bg-video" style="filter: blur(3px);">
@@ -18,23 +19,12 @@
     </div>
 
     <script>
-        // 쿠키를 읽는 함수
-        function getCookie(name) {
-            let value = "; " + document.cookie;
-            let parts = value.split("; " + name + "=");
-            if (parts.length == 2) return parts.pop().split(";").shift();
-        }
-
-        // 로그인 상태를 확인하는 함수
-        function checkLogin() {
-            return getCookie("username") !== undefined;
-        }
-
-        // 컨텐츠 로드 함수
-        function loadContent() {
+        async function loadContent() {
             const contentDiv = document.getElementById('content');
-            if (checkLogin()) {
-                // 로그인된 상태
+            const userData = await validateCookie();
+
+            if (!getCookie("PHPSESSID")) {
+                // 쿠키가 없는 상태
                 contentDiv.innerHTML = `
                     <div class="top-box">
                         <div class="blackjack-img-container">
@@ -45,6 +35,43 @@
                     <div class="bot-box">
                         <div class="dealer-img-container">
                             <img src="./assets/img/main/dealer.png" id="dealer_img" alt="Blackjack" class="dealer-img">
+                        </div>
+                        <div class="button-container">
+                            <div class="button-wrapper">
+                                <a href="./HTML/SignIn.html" class="button">
+                                    <img src="./assets/img/navbar/SignIn.svg" alt="Sign In Icon" class="button-icon">
+                                    <span class="button-text"> 로그인 </span>
+                                </a>
+                            </div>
+                            <div class="button-wrapper">
+                                <a href="./HTML/SignUp.html" class="button">
+                                    <img src="./assets/img/navbar/SignUp.svg" alt="Sign Up Icon" class="button-icon">
+                                    <span class="button-text"> 회원가입 </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (!userData) {
+                // 쿠키가 있는데 유효하지 않은 상태
+                await logout();
+            } else {
+                const { username, coins } = userData;
+                // 쿠키가 유효한 상태
+                contentDiv.innerHTML = `
+                    <div class="top-box">
+                        <div class="blackjack-img-container">
+                            <img src="./assets/img/main/BlackJack.png" id="main-black" alt="Blackjack" class="blackjack-img">
+                        </div>
+                    </div>
+                    <div class="mid-box"></div>
+                    <div class="bot-box">
+                        <div class="dealer-img-container">
+                            <img src="./assets/img/main/dealer.png" id="dealer_img" alt="Blackjack" class="dealer-img">
+                        </div>
+                        <div class="user-info">
+                            <p>닉네임: ${username}</p>
+                            <p>코인: ${coins}</p>
                         </div>
                         <div class="button-container">
                             <div class="button-wrapper">
@@ -69,35 +96,6 @@
                                 <a href="./HTML/Mypage.html" class="button">
                                     <img src="./assets/img/navbar/Mypage.svg" alt="Mypage" class="button-icon">
                                     <span class="button-text"> 정보 </span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            } else {
-                 // 로그인되지 않은 상태
-                contentDiv.innerHTML = `
-                    <div class="top-box">
-                        <div class="blackjack-img-container">
-                            <img src="./assets/img/main/BlackJack.png" id="main-black" alt="Blackjack" class="blackjack-img">
-                        </div>
-                    </div>
-                    <div class="mid-box"></div>
-                    <div class="bot-box">
-                        <div class="dealer-img-container">
-                            <img src="./assets/img/main/dealer.png" id="dealer_img" alt="Blackjack" class="dealer-img">
-                        </div>
-                        <div class="button-container">
-                            <div class="button-wrapper">
-                                <a href="./HTML/SignIn.html" class="button">
-                                    <img src="./assets/img/navbar/SignIn.svg" alt="Sign In Icon" class="button-icon">
-                                    <span class="button-text"> 로그인 </span>
-                                </a>
-                            </div>
-                            <div class="button-wrapper">
-                                <a href="./HTML/SignUp.html" class="button">
-                                    <img src="./assets/img/navbar/SignUp.svg" alt="Sign Up Icon" class="button-icon">
-                                    <span class="button-text"> 회원가입 </span>
                                 </a>
                             </div>
                         </div>
