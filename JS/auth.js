@@ -19,7 +19,7 @@ async function validateCookie() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            credentials: 'include' // 쿠키를 자동으로 포함
+            credentials: 'omit' // 쿠키를 자동으로 포함
         });
 
         console.log("validateCookie Response status:", response.status);
@@ -46,7 +46,7 @@ async function login(id, pw) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ id, pw }),
-            credentials: 'include' // 쿠키를 자동으로 포함하여 전송
+            credentials: 'omit' // 쿠키를 자동으로 포함하여 전송
         });
 
         console.log("Response status:", response.status);
@@ -55,8 +55,7 @@ async function login(id, pw) {
             // 로그인 성공
             return true;
         } else {
-            // 로그인 실패
-            return false;
+            // 로그인 실패ㄴ
         }
     } catch (error) {
         console.error("Unexpected error:", error);
