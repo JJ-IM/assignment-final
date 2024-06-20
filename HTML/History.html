@@ -6,7 +6,10 @@
     <title>킹콩머니 💸 - 기록</title>
     <link rel="icon" type="image/x-icon" href="../assets/img/main/DK_icon.ico">
     <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/nav.css">
+    <link rel="stylesheet" href="../css/AfterMain.css">
+    <link rel="stylesheet" href="../css/History.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <video autoplay loop muted playsinline id="bg-video" style="filter: blur(3px);">
@@ -33,28 +36,172 @@
         // 컨텐츠 로드 함수
         function loadContent() {
             const contentDiv = document.getElementById('content');
-            if (checkLogin()) {
+            if (1) {
                 // 로그인된 상태
                 contentDiv.innerHTML = `
-                    <div class="top-box">
-                    </div>
-
-                    <div class="mid-box">
-                    </div>
-
-                    <div class="bot-box">
-                        <div class="white-bar"></div>
+                    <div class="afterMain-container">
+                        <div class="afterMain-box">
+                            <div class="afterNav-box">
+                                <div class="afterLogo">
+                                    <img src="../assets/img/main/BlackJack.png" alt="BJ_Logo" class="afterLogo-img clickable-img" id="blackjack-logo">
+                                </div>
+                                <div class="afterMenu">
+                                    <div class="button-wrapper">
+                                        <a href="./Ranking.html" class="button">
+                                            <img src="../assets/img/navbar/Ranking.svg" alt="Ranking" class="button-icon">
+                                            <span class="button-text"> 랭킹 </span>
+                                        </a>
+                                    </div>
+                                    <div class="button-wrapper">
+                                        <a href="./History.html" class="button clicked">
+                                            <img src="../assets/img/navbar/History.svg" alt="History" class="button-icon">
+                                            <span class="button-text"> 기록 </span>
+                                        </a>
+                                    </div>
+                                    <div class="button-wrapper">
+                                        <a href="./Play.html" class="button">
+                                            <img src="../assets/img/navbar/Play.svg" alt="Play" class="button-icon">
+                                            <span class="button-text"> 시작 </span>
+                                        </a>
+                                    </div>
+                                    <div class="button-wrapper">
+                                        <a href="./Mypage.html" class="button">
+                                            <img src="../assets/img/navbar/Mypage.svg" alt="Mypage" class="button-icon">
+                                            <span class="button-text"> 정보 </span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="afterUser">
+                                    <div class="afterProfile">
+                                        <img src="../assets/img/main/userPro.png" alt="Profile" class="afterProfile-img">
+                                    </div>
+                                    <div class="afterUserdata">
+                                        <div class="user-name">
+                                            ${getCookie("username")}
+                                        </div>
+                                        <div class="user-coins">
+                                            <img src="../assets/img/main/Coin.png" alt="coinsImg" class="afterCoins-img">
+                                            <div class="coins-info">
+                                                ${getCookie("coins") ? getCookie("coins").slice(0, 5) : "err.."}
+                                            </div>
+                                            <div class="afterCoinsPlus">
+                                                <img src="../assets/img/navbar/Plus.svg" alt="coinsPlus" class="afterCoinsPlus-svg clickable-img" id="go-to-shop">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="afterContent-box">
+                                <div class="title-box">
+                                    <h2 class="top-title">History</h2>
+                                </div>
+                                <div class="content-box">
+                                    <div class="history-summary">
+                                        <div class="summary-box">
+                                            <div class="summary-title">전판 게임</div>
+                                            <div id="last-game" class="summary-value">데이터 없음</div>
+                                        </div>
+                                        <div class="summary-box">
+                                            <div class="summary-title">최근 승률</div>
+                                            <div id="recent-win-rate" class="summary-value">0%</div>
+                                        </div>
+                                        <div class="summary-box">
+                                            <div class="summary-title">전체 승률</div>
+                                            <div id="overall-win-rate" class="summary-value">0%</div>
+                                        </div>
+                                    </div>
+                                    <div class="history-header">
+                                        <div>판 수</div>
+                                        <div>결과</div>
+                                        <div></div>
+                                    </div>
+                                    <div class="history-list-container">
+                                        <ul id="history-list" class="history-list"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 `;
+                document.getElementById('blackjack-logo').addEventListener('click', function() {
+                    window.location.href = '../';
+                });
+                document.getElementById('go-to-shop').addEventListener('click', function() {
+                    window.location.href = './Shop.html';
+                });
+                loadHistory();
             } else {
-                // 로그인되지 않은 상태
-                alert("로그인을 해주세요"); // 경고 상자 표시
-                window.location.href = '../'; // 메인 화면으로 리다이렉트
+                alert("로그인을 해주세요");
+                window.location.href = '../';
             }
         }
 
-        // 페이지 로드 시 컨텐츠 로드
+        // 게임 기록 데이터를 불러오는 함수
+        function loadHistory() {
+            fetch('http://m.colio.net:8888/acc/getHistory')
+                .then(response => response.json())
+                .then(data => {
+                    renderHistoryData(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching history data:', error);
+                    // 에러 발생 시 더미 데이터를 사용합니다.
+                    const dummyData = [
+                        'Lose', 'Draw', 'Lose', 'Win', 'Draw', 'Lose', 'Win', 'Draw', 'Lose', 'Win'
+                    ];
+                    renderHistoryData(dummyData);
+                });
+        }
+
+        function renderHistoryData(data) {
+            const historyList = document.getElementById('history-list');
+            const lastGameElement = document.getElementById('last-game');
+            const recentWinRateElement = document.getElementById('recent-win-rate');
+            const overallWinRateElement = document.getElementById('overall-win-rate');
+
+            // 데이터가 10개 이하인 경우, 더미 데이터를 추가합니다.
+            const dummyData = [
+                'Win', 'Draw', 'Lose', 'Win', 'Draw', 'Lose', 'Win', 'Draw', 'Lose', 'Win'
+            ];
+            while (data.length < 10) {
+                data.push(dummyData[data.length % dummyData.length]);
+            }
+
+            // 가장 최근 게임 데이터
+            const lastGame = data[0];
+            lastGameElement.textContent = lastGame === 'Win' ? '승리' : lastGame === 'Lose' ? '패배' : '무승부';
+
+            // 최근 5게임의 승률 계산
+            const recentGames = data.slice(0, 5);
+            const recentWins = recentGames.filter(result => result === 'Win').length;
+            const recentWinRate = Math.round((recentWins / recentGames.length) * 100);
+            recentWinRateElement.textContent = `${recentWinRate}%`;
+
+            // 전체 게임의 승률 계산
+            const totalGames = data.length;
+            const totalWins = data.filter(result => result === 'Win').length;
+            const overallWinRate = Math.round((totalWins / totalGames) * 100);
+            overallWinRateElement.textContent = `${overallWinRate}%`;
+
+            // 히스토리 리스트 생성
+            data.forEach((result, index) => {
+                const listItem = document.createElement('li');
+                listItem.classList.add('history-item');
+                listItem.innerHTML = `
+                    <div class="history-game-number">${data.length - index}</div>
+                    <div class="history-result-box">
+                        <div class="history-result win ${result === 'Win' ? 'highlight' : ''}">승리</div>
+                        <div class="history-result draw ${result === 'Draw' ? 'highlight' : ''}">무승부</div>
+                        <div class="history-result lose ${result === 'Lose' ? 'highlight' : ''}">패배</div>
+                    </div>
+                `;
+                historyList.appendChild(listItem);
+            });
+        }
+
         window.onload = loadContent;
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

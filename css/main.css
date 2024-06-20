@@ -7,7 +7,7 @@
 }
 
 body {
-    font-family: 'Pretendard-Regular', sans-serif; /* 폰트 적용 */
+    font-family: 'Pretendard-Regular', sans-serif !important; /* 폰트 적용 */
     background: black !important;
     background-size: cover; /* 배경 이미지가 뷰포트를 완전히 커버하도록 설정 */
     background-attachment: fixed; /* 배경 이미지를 스크롤 시 고정 */
@@ -102,6 +102,11 @@ body {
 
 .button:hover {
     background-color: rgba(255, 255, 255, 0.2); /* 버튼 호버 시 배경 색상 변경 */
+}
+
+.button:active,
+.button.clicked {
+    background-color: rgba(0, 0, 0, 0.7); /* 더 어두운 색상 */
 }
 
 .button-icon {

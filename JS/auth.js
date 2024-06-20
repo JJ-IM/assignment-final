@@ -14,7 +14,7 @@ async function validateCookie() {
     }
 
     try {
-        const response = await fetch('https://gimal.jgn.pe.kr/acc/validCK', {
+        const response = await fetch('http://view.colio.net:8888/acc/validCK', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -40,7 +40,7 @@ async function validateCookie() {
 async function login(id, pw) {
     try {
         console.log("Sending data:", { id, pw });
-        const response = await fetch('https://gimal.jgn.pe.kr/acc/login', {
+        const response = await fetch('http://view.colio.net:8888/acc/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -66,7 +66,7 @@ async function login(id, pw) {
 // 회원가입 요청 함수
 async function register(id, email, pw) {
     try {
-        const response = await fetch('https://gimal.jgn.pe.kr/acc/register', {
+        const response = await fetch('http://view.colio.net:8888/acc/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -96,7 +96,7 @@ async function register(id, email, pw) {
 // 로그아웃 로직
 async function logout() {
     try {
-        const response = await fetch('https://gimal.jgn.pe.kr/acc/logout', {
+        const response = await fetch('http://view.colio.net:8888/acc/logout', {
             method: 'POST',
             credentials: 'include'
         });

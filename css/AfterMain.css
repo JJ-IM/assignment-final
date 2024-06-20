@@ -1,3 +1,18 @@
+/* 구글 폰트 추가 */
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+SK:wght@300&display=swap');
+
+/* 랭킹 제목 스타일 */
+.top-title {
+    font-family: "Playwrite SK", cursive !important; /* 폰트 적용 */
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-size: 6vh;
+    text-align: center;
+    margin-top: 10px;
+    color: white; /* 글자 색상 흰색으로 */
+}
+
+
 /* AfterMain.css */
 .afterMain-container {
     display: flex;
@@ -12,32 +27,49 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 90vh;
-    max-width: 1300px;
-    max-height: 900px;
+    height: 80vh;
     background: linear-gradient(244deg, rgba(255, 255, 255, 0.24) 0%, rgba(107, 107, 107, 0.20) 100%);
     border-radius: 4vh;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+/* QHD 환경에 맞춘 설정 */
+/* 높이가 800px 이상일 때 */
+@media (min-height: 800px) {
+    .afterMain-box {
+        max-width: 1000px;
+        max-height: 700px;
+    }
+}
+
+/* 높이 1100px 이상일 때 */
+@media (min-height: 1100px) {
+    .afterMain-box {
+        max-width: 1300px;
+        max-height: 900px;
+    }
+}
+
+
 .afterNav-box {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     width: 25%;
     height: 100%;
     padding-top: 20px;
     padding-bottom: 20px;
     border-radius: 4vh 0vh 0vh 4vh;
-    background-color: aliceblue;
+    background-color: rgba(255, 255, 255, 0.1);
+    position: relative;
 }
 
 .afterLogo {
     width: 120%;
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 2vh; /* 로고와 네비게이션 바 사이 간격 */
 }
 
 .afterLogo-img {
@@ -50,7 +82,7 @@
     align-items: center;
     width: 68.5%;
     gap: 10px;
-    margin-top: 4vh; /* 로고 기준 5vh 아래로 이동 */
+    margin-top: 0; /* 로고 기준 0vh 아래로 이동 */
 }
 
 .button-wrapper {
@@ -69,7 +101,7 @@
     border-radius: 4vh;
     background-color: rgba(0, 0, 0, 0.4);
     color: white;
-    font-size: 22px;
+    font-size: 1.6vh;
     text-decoration: none;
     width: 70%;
 }
@@ -94,21 +126,94 @@
     width: 75%;
     height: 100%;
     border-radius: 0vh 4vh 4vh 0vh;
-    background-color: aquamarine;
 }
 
 .afterUser {
-    text-align: center;
-    padding: 10px;
-    background-color: rgba(255, 255, 255, 0.4);
-    border-radius: 10px;
-    margin-top: auto; /* 네비게이션 바의 맨 아래에 위치하도록 설정 */
-}
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 30px;
+    width: 92.5%; /* 너비 조정 */
+    position: absolute; /* 절대 위치 설정 */
+    bottom: 1.5vh; /* 아래에서 1.5vh 위로 위치 */
+} 
 
 .afterProfile{
-    width: 5%;
-    height: 5%;
-    border-radius: 50%;
+    width: 47%; /* 이미지 너비 조정 */
+    height: 47%; /* 이미지 높이 조정 */
+    padding-right: 1.5vh;
+}
+
+.afterProfile-img {
+    width: 100%; /* 이미지 너비 조정 */
+    height: 100%; /* 이미지 높이 조정 */
     object-fit: cover;
-    margin-bottom: 10px;
+}
+
+.afterUserdata {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%; /* 부모 요소의 전체 높이 차지 */
+    gap: 2vh; /* user-name과 user-coins 사이의 간격 추가 */
+}
+
+.user-name, .user-coins {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50%; /* 부모 요소의 반 높이 차지 */
+    width: 100%; /* 너비를 100%로 설정하여 중앙 정렬이 잘 적용되도록 */
+    margin: 0;
+    font-size : 1rem;
+    
+}
+.user-name{
+    color:white;
+    font-size: 1.6vh;
+}
+
+.user-coins {
+    display: flex;
+    justify-content: space-between; /* 좌우 끝으로 정렬 */
+    align-items: center;
+    height: 50%;
+    margin: 0;
+    font-size: 1rem;
+    background-color: rgba(255, 255, 255, 0.4);
+    padding: 2%;
+    border-radius: 50px;
+    position: relative; /* position 속성 추가 */
+    font-size: 1.4vh;
+}
+
+.afterCoins-img {
+    width: 25%;
+    height: 25%;
+    order: 1; /* 첫 번째 위치 */
+}
+
+.coins-info {
+    order: 2; /* 두 번째 위치 */
+    margin-right: 5px; /* 추가 버튼과의 간격 */
+}
+
+.afterCoinsPlus {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.5);
+    height: 25px;
+    width: 25px;
+    order: 3; /* 세 번째 위치 */
+    border-radius: 50px;
+}
+
+.afterCoinsPlus-svg {
+    width: 68.5%;
+    height: 68.5%;
 }

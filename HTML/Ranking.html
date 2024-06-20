@@ -43,11 +43,11 @@
                         <div class="afterMain-box">
                             <div class="afterNav-box">
                                 <div class="afterLogo">
-                                    <img src="../assets/img/main/BlackJack.png" alt="BJ_Logo" class="afterLogo-img clickable" id="blackjack-logo">
+                                    <img src="../assets/img/main/BlackJack.png" alt="BJ_Logo" class="afterLogo-img clickable-img" id="blackjack-logo">
                                 </div>
                                 <div class="afterMenu">
                                     <div class="button-wrapper">
-                                        <a href="./Ranking.html" class="button">
+                                        <a href="./Ranking.html" class="button clicked">
                                             <img src="../assets/img/navbar/Ranking.svg" alt="Ranking" class="button-icon">
                                             <span class="button-text"> 랭킹 </span>
                                         </a>
@@ -75,14 +75,38 @@
                                     <div class="afterProfile">
                                         <img src="../assets/img/main/userPro.png" alt="Profile" class="afterProfile-img">
                                     </div>
-                                    <p>안녕하세요, ${getCookie("username")}님!</p>
-                                    <p>현재 코인, ${getCookie("coins")}님!</p>
-
+                                    <div class="afterUserdata">
+                                        <div class="user-name">
+                                            ${getCookie("username")}
+                                        </div>
+                                        <div class="user-coins">
+                                            <img src="../assets/img/main/Coin.png" alt="coinsImg" class="afterCoins-img">
+                                            <div class="coins-info">
+                                                ${getCookie("coins") ? getCookie("coins").slice(0, 5) : "err.."}
+                                            </div>
+                                            <div class="afterCoinsPlus">
+                                                <img src="../assets/img/navbar/Plus.svg" alt="coinsPlus" class="afterCoinsPlus-svg clickable-img" id="go-to-shop">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="afterContent-box">
-                                <h2>랭킹 리스트</h2>
-                                <ul id="ranking-list"></ul>
+                                <div class="title-box">
+                                    <h2 class="top-title">Ranking</h2>
+                                </div>
+                                <div class="content-box">
+                                    <div class="ranking-header">
+                                        <div class="rank">순위</div>
+                                        <div class="nickname">닉네임</div>
+                                        <div class="total-match">판수</div>
+                                        <div class="total-win">승리 횟수</div>
+                                        <div class="total-lose">패배 횟수</div>
+                                    </div>
+                                    <div class="ranking-list-container">
+                                        <ul id="ranking-list" class="ranking-list"></ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -90,31 +114,90 @@
                 document.getElementById('blackjack-logo').addEventListener('click', function() {
                     window.location.href = '../';
                 });
+                document.getElementById('go-to-shop').addEventListener('click', function() {
+                    window.location.href = './Shop.html';
+                });
                 loadRanking();
-                logout();
             } else {
                 alert("로그인을 해주세요");
                 window.location.href = '../';
-                
             }
         }
 
         // 랭킹 데이터를 불러오는 함수
         function loadRanking() {
-            const rankingList = document.getElementById('ranking-list');
-            // 임의의 랭킹 데이터 (실제 데이터는 서버에서 가져와야 함)
-            const rankings = [
-                { username: 'user1', score: 1000 },
-                { username: 'user2', score: 900 },
-                { username: 'user3', score: 800 },
-                // ... 추가 데이터
-            ];
+            fetch('http://m.colio.net:8888/acc/getRank')
+                .then(response => response.json())
+                .then(data => {
+                    const rankingList = document.getElementById('ranking-list');
+                    const dummyData = [
+                        { nickname: '더미', totalMatch: -1, totalWin: -1, totalLose: -1 },
+                        { nickname: '더미', totalMatch: -2, totalWin: -2, totalLose: -2 },
+                        { nickname: '더미', totalMatch: -3, totalWin: -3, totalLose: -3 },
+                        { nickname: '더미', totalMatch: -4, totalWin: -4, totalLose: -4 },
+                        { nickname: '더미', totalMatch: -5, totalWin: -5, totalLose: -5 },
+                        { nickname: '더미', totalMatch: -6, totalWin: -6, totalLose: -6 },
+                        { nickname: '더미', totalMatch: -7, totalWin: -7, totalLose: -7 },
+                        { nickname: '더미', totalMatch: -8, totalWin: -8, totalLose: -8 },
+                        { nickname: '더미', totalMatch: -9, totalWin: -9, totalLose: -9 },
+                        { nickname: '더미', totalMatch: -10, totalWin: -10, totalLose: -10 },
+                        { nickname: '더미', totalMatch: -11, totalWin: -11, totalLose: -11 }
+                    ];
 
-            rankings.forEach(rank => {
-                const listItem = document.createElement('li');
-                listItem.textContent = `${rank.username}: ${rank.score}점`;
-                rankingList.appendChild(listItem);
-            });
+                    // 서버에서 데이터를 받아오지 못한 경우, 더미 데이터를 사용합니다.
+                    if (!data || data.length === 0) {
+                        data = dummyData;
+                    }
+
+                    // 데이터가 10개 이하인 경우, 더미 데이터를 추가합니다.
+                    while (data.length < 10) {
+                        data.push(dummyData[data.length % dummyData.length]);
+                    }
+
+                    data.forEach((rank, index) => {
+                        const listItem = document.createElement('li');
+                        listItem.classList.add('ranking-item');
+                        listItem.innerHTML = `
+                            <div class="rank">${index + 1}</div>
+                            <div class="nickname">${rank.nickname}</div>
+                            <div class="total-match">${rank.totalMatch}</div>
+                            <div class="total-win">${rank.totalWin}</div>
+                            <div class="total-lose">${rank.totalLose}</div>
+                        `;
+                        rankingList.appendChild(listItem);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching ranking data:', error);
+                    // 에러 발생 시 더미 데이터를 사용합니다.
+                    const rankingList = document.getElementById('ranking-list');
+                    const dummyData = [
+                        { nickname: '더미', totalMatch: -1, totalWin: -1, totalLose: -1 },
+                        { nickname: '더미', totalMatch: -2, totalWin: -2, totalLose: -2 },
+                        { nickname: '더미', totalMatch: -3, totalWin: -3, totalLose: -3 },
+                        { nickname: '더미', totalMatch: -4, totalWin: -4, totalLose: -4 },
+                        { nickname: '더미', totalMatch: -5, totalWin: -5, totalLose: -5 },
+                        { nickname: '더미', totalMatch: -6, totalWin: -6, totalLose: -6 },
+                        { nickname: '더미', totalMatch: -7, totalWin: -7, totalLose: -7 },
+                        { nickname: '더미', totalMatch: -8, totalWin: -8, totalLose: -8 },
+                        { nickname: '더미', totalMatch: -9, totalWin: -9, totalLose: -9 },
+                        { nickname: '더미', totalMatch: -10, totalWin: -10, totalLose: -10 },
+                        { nickname: '더미', totalMatch: -11, totalWin: -11, totalLose: -11 }
+                    ];
+
+                    dummyData.forEach((rank, index) => {
+                        const listItem = document.createElement('li');
+                        listItem.classList.add('ranking-item');
+                        listItem.innerHTML = `
+                            <div class="rank">${index + 1}</div>
+                            <div class="nickname">${rank.nickname}</div>
+                            <div class="total-match">${rank.totalMatch}</div>
+                            <div class="total-win">${rank.totalWin}</div>
+                            <div class="total-lose">${rank.totalLose}</div>
+                        `;
+                        rankingList.appendChild(listItem);
+                    });
+                });
         }
 
         window.onload = loadContent;

@@ -1,0 +1,151 @@
+.title-box {
+    width: 100%;
+    height: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.content-box {
+    width: 90%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.history-summary {
+    display: flex;
+    width: 100%;
+    padding: 0px 0px 15px 0px;
+    justify-content: center;
+}
+
+.summary-box {
+    width: 10vh;
+    height: 10vh;
+    background-color: rgba(255, 255, 255, 0.75);
+    text-align: center;
+    border-radius: 5px;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    font-size: 1.4vh;
+    margin: 0px 15px;
+}
+
+.summary-title {
+    font-weight: bold;
+}
+
+.summary-value {
+    font-size: 2.75vh;
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: white; /* 글자 색상 흰색으로 */
+    font-weight: bold;
+    border-radius: 10px 10px 0px 0px;
+    background-color: rgba(0, 0, 0, 0.4); /* 배경 색상 추가 */
+    width: 100%; /* 너비 100% */
+}
+
+.history-header div {
+    text-align: center;
+}
+
+.history-list-container {
+    width: 100%;
+    flex: 1;
+    overflow-y: auto; /* 수직 스크롤바 추가 */
+}
+
+.history-list {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    overflow-y: scroll; /* 스크롤바 설정 */
+}
+
+/* 스크롤바 스타일 수정 */
+.history-list::-webkit-scrollbar {
+    width: 8px; /* 스크롤바 너비를 얇게 설정 */
+}
+
+.history-list::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.history-list::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 6px;
+    border: 3px solid transparent;
+}
+
+.history-list::-webkit-scrollbar-button {
+    display: none;
+}
+
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: white; /* 글자 색상 흰색으로 */
+    background-color: rgba(0, 0, 0, 0.2); /* 배경 색상 추가 */
+}
+
+.history-item div {
+    text-align: center;
+    padding: 5px;
+}
+
+.history-game-number {
+    width: 4vh;
+    height: 4vh;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%; /* 1:1 비율로 동그라미 설정 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.history-result-box {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.history-result {
+    flex: 1;
+    margin: 0vh 3vh;
+    padding: 10px;
+    text-align: center;
+    border-radius: 10px;
+    color: rgba(0, 0, 0, 0.256); /* 기본 글씨 색상 연한 회색 */
+}
+
+.history-result.highlight {
+    color: white; /* 하이라이트된 경우 글씨 색상 흰색 */
+}
+
+.history-result.win {
+    background-color: rgba(0, 255, 0, 0.1); /* 연한 초록색 배경 */
+}
+
+.history-result.draw {
+    background-color: rgba(255, 255, 0, 0.1); /* 연한 노란색 배경 */
+}
+
+.history-result.lose {
+    background-color: rgba(255, 0, 0, 0.1); /* 연한 빨간색 배경 */
+}

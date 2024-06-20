@@ -1,0 +1,85 @@
+.title-box {
+    width: 100%;
+    height: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content-box {
+    width: 90%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ranking-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: white; /* 글자 색상 흰색으로 */
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.4); /* 배경 색상 추가 */
+    width: 100%; /* 너비 100% */
+    border-radius: 2vh 2vh 0px 0px;
+}
+
+.ranking-header div {
+    flex: 1;
+    text-align: center;
+}
+
+.ranking-list-container {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto; /* 수직 스크롤바 추가 */
+}
+
+.ranking-list {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    overflow-y: scroll; /* 스크롤바 설정 */
+}
+
+/* 스크롤바 스타일 수정 */
+.ranking-list::-webkit-scrollbar {
+    width: 8px; /* 스크롤바 너비를 얇게 설정 */
+}
+
+.ranking-list::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.ranking-list::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 6px;
+    border: 3px solid transparent;
+}
+
+.ranking-list::-webkit-scrollbar-button {
+    display: none;
+}
+
+.ranking-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: white; /* 글자 색상 흰색으로 */
+    background-color: rgba(0, 0, 0, 0.2); /* 배경 색상 추가 */
+}
+
+.ranking-item div {
+    flex: 1;
+    text-align: center;
+    padding: 5px;
+}
+
+.rank, .nickname, .total-match, .total-win, .total-lose {
+    padding: 5px;
+}
