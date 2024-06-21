@@ -1,6 +1,6 @@
 .afterContent-box {
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.295);
+    /* background-color: rgba(255, 255, 255, 0.295); */
     border-radius: 0px 4vh 4vh 0px;
     color: black;
     margin: 0 auto;
@@ -23,7 +23,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 50%;
+    width: 35%;
 }
 
 form {
