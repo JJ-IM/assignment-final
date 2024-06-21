@@ -6,8 +6,9 @@ function loadContent() {
     const contentDiv = document.getElementById('content');
     if (isMaintenanceMode() || checkLogin()) {
         const username = getCookie("username");
-        const email = getCookie("email");
+        const email = "기능을 구현중입니다";
         const nickname = getCookie("nickname");
+        const dummyPassword = generateDummyPassword();
 
         contentDiv.innerHTML = `
             <div class="afterMain-container">
@@ -61,24 +62,27 @@ function loadContent() {
                         </div>
                     </div>
                     <div class="afterContent-box">
-                        <h2>마이페이지</h2>
-                        <form id="user-form">
-                            <div class="form-group">
-                                <label for="nickname">닉네임:</label>
-                                <input type="text" id="nickname" name="nickname" value="${nickname}" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">이메일:</label>
-                                <input type="email" id="email" name="email" value="${email}" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="password">비밀번호:</label>
-                                <input type="password" id="password" name="password" class="form-control">
-                            </div>
-                            <button type="submit" class="btn btn-primary">정보 수정</button>
-                            <button type="button" id="logout" class="btn btn-secondary">로그아웃</button>
-                            <button type="button" id="delete-account" class="btn btn-danger">회원 탈퇴</button>
-                        </form>
+                        <div class="title-box">
+                            <h2 class="top-title">MyPage</h2>
+                        </div>
+                        <div class="content-box">
+                            <form id="user-form">
+                                <div class="form-group">
+                                    <label for="nickname">닉네임:</label>
+                                    <input type="text" id="nickname" name="nickname" value="${nickname}" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">이메일:</label>
+                                    <input type="email" id="email" name="email" value="${email}" class="form-control disabled-input" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">비밀번호:</label>
+                                    <input type="password" id="password" name="password" value="${dummyPassword}" class="form-control disabled-input" disabled>
+                                </div>
+                                <button type="submit" class="btn btn-primary">정보 수정</button>
+                                <button type="button" id="logout" class="btn btn-secondary">로그아웃</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -92,11 +96,6 @@ function loadContent() {
         document.getElementById('logout').addEventListener('click', function() {
             window.location.href = './Logout.html';
         });
-        document.getElementById('delete-account').addEventListener('click', function() {
-            if (confirm('정말로 탈퇴하시겠습니까?')) {
-                deleteAccount();
-            }
-        });
         document.getElementById('user-form').addEventListener('submit', function(event) {
             event.preventDefault();
             updateUser();
@@ -107,18 +106,25 @@ function loadContent() {
     }
 }
 
+function generateDummyPassword() {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let password = '';
+    for (let i = 0; i < 8; i++) {
+        password += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return password;
+}
+
 // 유저 정보 업데이트 함수
 function updateUser() {
     const nickname = document.getElementById('nickname').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
 
     fetch(`${BACKEND_URL}/acc/updateUser`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ nickname, email, password })
+        body: JSON.stringify({ nickname })
     })
     .then(response => response.json())
     .then(data => {
@@ -130,27 +136,5 @@ function updateUser() {
     })
     .catch(error => {
         console.error('Error updating user information:', error);
-    });
-}
-
-// 회원 탈퇴 함수
-function deleteAccount() {
-    fetch(`${BACKEND_URL}/acc/deleteUser`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert('회원 탈퇴가 성공적으로 처리되었습니다.');
-            window.location.href = '../';
-        } else {
-            alert('회원 탈퇴에 실패했습니다.');
-        }
-    })
-    .catch(error => {
-        console.error('Error deleting account:', error);
     });
 }
