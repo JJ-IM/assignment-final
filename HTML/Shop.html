@@ -143,31 +143,11 @@
                 document.getElementById('go-to-shop').addEventListener('click', function() {
                     window.location.href = './Shop.html';
                 });
-                loadRanking();
-                logout();
             } else {
                 alert("로그인을 해주세요");
                 window.location.href = '../';
                 
             }
-        }
-
-        // 랭킹 데이터를 불러오는 함수
-        function loadRanking() {
-            const rankingList = document.getElementById('ranking-list');
-            // 임의의 랭킹 데이터 (실제 데이터는 서버에서 가져와야 함)
-            const rankings = [
-                { username: 'user1', score: 1000 },
-                { username: 'user2', score: 900 },
-                { username: 'user3', score: 800 },
-                // ... 추가 데이터
-            ];
-
-            rankings.forEach(rank => {
-                const listItem = document.createElement('li');
-                listItem.textContent = `${rank.username}: ${rank.score}점`;
-                rankingList.appendChild(listItem);
-            });
         }
 
         window.onload = loadContent;

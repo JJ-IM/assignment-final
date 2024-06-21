@@ -129,7 +129,11 @@
     flex: 1;
     margin: 0vh 3vh;
     padding: 10px;
+
     text-align: center;
+    justify-content: center;
+    align-items: center;
+    
     border-radius: 10px;
     color: rgba(0, 0, 0, 0.256); /* 기본 글씨 색상 연한 회색 */
 }

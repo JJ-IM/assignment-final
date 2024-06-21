@@ -1,0 +1,36 @@
+.title-box {
+    height: 30%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content-box {
+    height: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.game-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-button {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 40px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.game-button:hover {
+    background-color: #555;
+}

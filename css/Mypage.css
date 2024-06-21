@@ -1,0 +1,20 @@
+.afterContent-box {
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.295);
+    border-radius: 0px 4vh 4vh 0px;
+    color: black;
+    margin: 0 auto;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.btn {
+    margin-top: 10px;
+}

@@ -1,61 +1,58 @@
-// 쿠키를 읽는 함수
-function getCookie(name) {
-    let value = "; " + document.cookie;
-    let parts = value.split("; " + name + "=");
-    if (parts.length === 2) return parts.pop().split(";").shift();
-    return null;
-}
-
 // 서버에 쿠키 유효성을 확인하는 함수
 async function validateCookie() {
-    const encryptedCookie = getCookie("PHPSESSID"); // 'PHPSESSID'이라는 쿠키 이름 가정
+    if (isMaintenanceMode()) {
+        return { username: 'dummyUser', coins: 1000, email: 'dummy@example.com', nickname: 'dummyNick' };
+    }
+    const encryptedCookie = getCookie("PHPSESSID");
     if (!encryptedCookie) {
         return null;
     }
 
     try {
-        const response = await fetch('http://view.colio.net:8888/acc/validCK', {
+        const response = await fetch(`${BACKEND_URL}/acc/validCK`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            credentials: 'omit' // 쿠키를 자동으로 포함
+            credentials: 'omit'
         });
 
         console.log("validateCookie Response status:", response.status);
 
         if (response.status === 200) {
             const data = await response.json();
-            return data; // 사용자 닉네임과 코인 정보 반환
+            return data;
         } else {
-            return null; // 유효하지 않은 쿠키
+            return null;
         }
     } catch (error) {
         console.error("Unexpected error:", error);
-        return null; // 에러 처리
+        return null;
     }
 }
 
 // 로그인 요청 함수
 async function login(id, pw) {
+    if (isMaintenanceMode()) {
+        return true;
+    }
     try {
         console.log("Sending data:", { id, pw });
-        const response = await fetch('http://view.colio.net:8888/acc/login', {
+        const response = await fetch(`${BACKEND_URL}/acc/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ id, pw }),
-            credentials: 'omit' // 쿠키를 자동으로 포함하여 전송
+            credentials: 'omit'
         });
 
         console.log("Response status:", response.status);
 
         if (response.status === 200) {
-            // 로그인 성공
             return true;
         } else {
-            // 로그인 실패ㄴ
+            return false;
         }
     } catch (error) {
         console.error("Unexpected error:", error);
@@ -65,8 +62,11 @@ async function login(id, pw) {
 
 // 회원가입 요청 함수
 async function register(id, email, pw) {
+    if (isMaintenanceMode()) {
+        return { success: true };
+    }
     try {
-        const response = await fetch('http://view.colio.net:8888/acc/register', {
+        const response = await fetch(`${BACKEND_URL}/acc/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -95,8 +95,13 @@ async function register(id, email, pw) {
 
 // 로그아웃 로직
 async function logout() {
+    if (isMaintenanceMode()) {
+        alert("로그아웃되었습니다.");
+        window.location.href = '../';
+        return;
+    }
     try {
-        const response = await fetch('http://view.colio.net:8888/acc/logout', {
+        const response = await fetch(`${BACKEND_URL}/acc/logout`, {
             method: 'POST',
             credentials: 'include'
         });
