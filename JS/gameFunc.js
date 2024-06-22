@@ -1,10 +1,12 @@
 // gameFunc.js
 
 document.addEventListener('DOMContentLoaded', function() {
-    loadContent();
+    const urlParams = new URLSearchParams(window.location.search);
+    const betAmount = parseInt(urlParams.get('bet'), 10) || 50;
+    loadContent(betAmount);
 });
 
-function loadContent() {
+function loadContent(betAmount) {
     const contentDiv = document.getElementById('content');
     if (isMaintenanceMode() || checkLogin()) {
         const initialState = getInitialDummyState();
@@ -89,17 +91,19 @@ function loadContent() {
         renderInitialState(initialState);
 
         document.getElementById('hit').addEventListener('click', function() {
-            hit(initialState);
+            hit(initialState, betAmount);
         });
         document.getElementById('stand').addEventListener('click', function() {
-            alert("Stand 기능은 구현 중입니다.");
+            stand(initialState, betAmount);
         });
         document.getElementById('die').addEventListener('click', function() {
-            alert("Die 기능은 구현 중입니다.");
+            die(initialState, betAmount);
         });
         document.getElementById('double-down').addEventListener('click', function() {
-            alert("Double Down 기능은 구현 중입니다.");
+            doubleDown(initialState, betAmount);
         });
+
+        checkInitialGameOver(initialState, betAmount);
     } else {
         alert("로그인을 해주세요");
         window.location.href = '../';
@@ -113,24 +117,161 @@ function renderInitialState(state) {
     playerCardsDiv.innerHTML = '';
 
     state.dealer.forEach(card => {
-        dealerCardsDiv.innerHTML += `<div class="card">${card.value} ${card.suit}</div>`;
+        dealerCardsDiv.innerHTML += `<div class="card"><img src="../assets/img/game/Cards/${card.value.toLowerCase()}_of_${card.suit.toLowerCase()}.svg" alt="${card.value} ${card.suit}" /></div>`;
     });
 
     state.player.forEach(card => {
-        playerCardsDiv.innerHTML += `<div class="card">${card.value} ${card.suit}</div>`;
+        playerCardsDiv.innerHTML += `<div class="card"><img src="../assets/img/game/Cards/${card.value.toLowerCase()}_of_${card.suit.toLowerCase()}.svg" alt="${card.value} ${card.suit}" /></div>`;
     });
 
     document.getElementById('dealer-total').textContent = state.dealerTotal;
     document.getElementById('player-total').textContent = state.playerTotal;
 }
 
-function hit(state) {
+function hit(state, betAmount) {
+    if (state.gameOver) return;
+
     if (state.deck.length > 0) {
         const newCard = state.deck.shift();
         state.player.push(newCard);
         state.playerTotal = calculateTotal(state.player);
         renderInitialState(state);
+        checkGameOver(state, betAmount, false);
     } else {
         alert("덱에 더 이상 카드가 없습니다.");
     }
+}
+
+function stand(state, betAmount) {
+    if (state.gameOver) return;
+
+    while (state.dealerTotal < 17) {
+        const newCard = state.deck.shift();
+        state.dealer.push(newCard);
+        state.dealerTotal = calculateTotal(state.dealer);
+    }
+    renderInitialState(state);
+    checkGameOver(state, betAmount, true);
+}
+
+function die(state, betAmount) {
+    if (state.gameOver) return;
+
+    state.gameOver = true;
+    renderInitialState(state);
+    setTimeout(() => {
+        alert(`플레이어가 다이했습니다. 베팅 금액의 75%(${Math.round(betAmount * 0.75)})을(를) 잃습니다.`);
+        redirectToPlay();
+    }, 300);
+}
+
+function doubleDown(state, betAmount) {
+    if (state.gameOver) return;
+
+    const doubleBetAmount = betAmount * 2;
+    state.doubleDown = true;
+    state.doubleBetAmount = doubleBetAmount;
+    if (state.deck.length > 0) {
+        const newCard = state.deck.shift();
+        state.player.push(newCard);
+        state.playerTotal = calculateTotal(state.player);
+        renderInitialState(state);
+        if (state.playerTotal > 21) {
+            state.gameOver = true;
+            setTimeout(() => {
+                alert(`플레이어가 버스트했습니다. 베팅 금액의 2배(${doubleBetAmount})을(를) 잃었습니다.`);
+                redirectToPlay();
+            }, 300);
+        } else {
+            stand(state, doubleBetAmount);
+        }
+    } else {
+        alert("덱에 더 이상 카드가 없습니다.");
+    }
+}
+
+function checkInitialGameOver(state, betAmount) {
+    if (state.dealerTotal === 21 && state.dealer.length === 2 && state.playerTotal === 21 && state.player.length === 2) {
+        state.gameOver = true;
+        setTimeout(() => {
+            alert("딜러와 플레이어 모두 블랙잭입니다. 무승부입니다.");
+            redirectToPlay();
+        }, 300);
+    } else if (state.dealerTotal === 21 && state.dealer.length === 2) {
+        state.gameOver = true;
+        setTimeout(() => {
+            alert("딜러가 블랙잭입니다! 딜러가 이겼습니다.");
+            redirectToPlay();
+        }, 300);
+    } else if (state.playerTotal === 21 && state.player.length === 2) {
+        state.gameOver = true;
+        setTimeout(() => {
+            alert(`플레이어가 블랙잭입니다! 베팅 금액 ${betAmount}을(를) 얻었습니다.`);
+            redirectToPlay();
+        }, 300);
+    }
+}
+
+function checkGameOver(state, betAmount, showDealer) {
+    if (state.gameOver) return;
+
+    renderInitialState(state);
+
+    if (state.playerTotal > 21) {
+        state.gameOver = true;
+        setTimeout(() => {
+            alert(`플레이어가 버스트했습니다. 베팅 금액 ${state.doubleDown ? state.doubleBetAmount : betAmount}을(를) 잃었습니다.`);
+            redirectToPlay();
+        }, 300);
+    } else if (state.dealerTotal > 21) {
+        state.gameOver = true;
+        setTimeout(() => {
+            alert(`딜러가 버스트했습니다. 플레이어가 이겼습니다! 베팅 금액 ${state.doubleDown ? state.doubleBetAmount : betAmount}을(를) 얻었습니다.`);
+            redirectToPlay();
+        }, 300);
+    } else if (showDealer) {
+        if (state.dealerTotal > state.playerTotal) {
+            setTimeout(() => {
+                alert(`딜러가 이겼습니다. 베팅 금액 ${state.doubleDown ? state.doubleBetAmount : betAmount}을(를) 잃었습니다.`);
+                redirectToPlay();
+            }, 300);
+        } else if (state.dealerTotal < state.playerTotal) {
+            setTimeout(() => {
+                alert(`플레이어가 이겼습니다! 베팅 금액 ${state.doubleDown ? state.doubleBetAmount : betAmount}을(를) 얻었습니다.`);
+                redirectToPlay();
+            }, 300);
+        } else {
+            setTimeout(() => {
+                alert("무승부입니다.");
+                redirectToPlay();
+            }, 300);
+        }
+    }
+}
+
+function redirectToPlay() {
+    setTimeout(() => {
+        window.location.href = './Play.html';
+    }, 300);
+}
+
+function calculateTotal(cards) {
+    let total = 0;
+    let aces = 0;
+    cards.forEach(card => {
+        const value = card.value.toLowerCase();
+        if (value === 'a') {
+            aces += 1;
+            total += 11;
+        } else if (['k', 'q', 'j'].includes(value)) {
+            total += 10;
+        } else {
+            total += parseInt(value, 10);
+        }
+    });
+    while (total > 21 && aces > 0) {
+        total -= 10;
+        aces -= 1;
+    }
+    return total;
 }

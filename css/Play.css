@@ -34,3 +34,41 @@
 .game-button:hover {
     background-color: #555;
 }
+
+.betting-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.betting-arrow {
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    font-size: 1.5em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.betting-arrow:hover {
+    background-color: #555;
+}
+
+.betting-arrow img {
+    filter: brightness(0) invert(1); /* 완전히 하얀색으로 변경 */
+}
+
+.betting-amount {
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 0 10px;
+    font-size: 1.2em;
+    text-align: center;
+}

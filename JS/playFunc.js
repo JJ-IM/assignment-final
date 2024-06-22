@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', function() {
 function loadContent() {
     const contentDiv = document.getElementById('content');
     if (isMaintenanceMode() || checkLogin()) {
+        let betAmount = 50;
+
         contentDiv.innerHTML = `
             <div class="afterMain-container">
                 <div class="afterMain-box">
@@ -67,20 +69,44 @@ function loadContent() {
                                 <button class="game-button" id="single-play-button">싱글 플레이</button>
                                 <button class="game-button" id="multi-play-button">멀티플레이</button>
                             </div>
+                            <div class="betting-box">
+                                <button class="betting-arrow" id="bet-decrease">
+                                    <img src="../assets/img/game/arrow_back.svg" alt="Decrease Bet">
+                                </button>
+                                <div class="betting-amount" id="bet-amount">${betAmount}</div>
+                                <button class="betting-arrow" id="bet-increase">
+                                    <img src="../assets/img/game/arrow_forward.svg" alt="Increase Bet">
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         `;
+
         document.getElementById('blackjack-logo').addEventListener('click', function() {
             window.location.href = '../';
         });
         document.getElementById('go-to-shop').addEventListener('click', function() {
             window.location.href = './Shop.html';
         });
-        document.getElementById('single-play-button').addEventListener('click', function() {
-            window.location.href = './game.html';
+
+        document.getElementById('bet-increase').addEventListener('click', function() {
+            betAmount += 5;
+            document.getElementById('bet-amount').textContent = betAmount;
         });
+
+        document.getElementById('bet-decrease').addEventListener('click', function() {
+            if (betAmount > 50) {
+                betAmount -= 5;
+                document.getElementById('bet-amount').textContent = betAmount;
+            }
+        });
+
+        document.getElementById('single-play-button').addEventListener('click', function() {
+            window.location.href = `./game.html?bet=${betAmount}`;
+        });
+
         document.getElementById('multi-play-button').addEventListener('click', function() {
             alert('이 기능은 구현중입니다');
         });
